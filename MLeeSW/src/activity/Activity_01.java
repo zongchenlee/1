@@ -12,7 +12,7 @@ public class Activity_01 extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_activity_01);
+		setContentView(R.layout.activity_01);
 	}
 
 	
@@ -22,6 +22,8 @@ public class Activity_01 extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_01, menu);
 		return true;
+		
+		
 	}
-
+ 
 }
