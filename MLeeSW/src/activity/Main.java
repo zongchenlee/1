@@ -1,20 +1,26 @@
 package activity;
 
-import software.mlee.rev1.R;
-import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
-import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Main extends Activity {
-	private ImageView m_CImgView1;
-	private ImageView m_CImgView2;
+import fragment.Fragment_01;
+import fragment.Fragment_02;
+import fragment.Fragment_03;
+import fragment.Fragment_04;
+
+import software.mlee.rev1.R;
+import Adapter.StatePagerAdapter;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.Window;
+
+public class Main extends FragmentActivity{
+	private ViewPager 			m_CPager;
+	private StatePagerAdapter 	m_CAdapter;
+	private List<Fragment>  	m_CFList = new ArrayList<Fragment>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,35 +28,22 @@ public class Main extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
 		
-		m_CImgView1 = (ImageView)findViewById(R.id.main_image1);
-		m_CImgView2 = (ImageView)findViewById(R.id.main_image2);
+		Fragment_01 f1 = new Fragment_01();
+		Fragment_02 f2 = new Fragment_02();
+		Fragment_03 f3 = new Fragment_03();
+		Fragment_04 f4 = new Fragment_04();
+		m_CFList.add(f1);
+		m_CFList.add(f2);
+		m_CFList.add(f3);
+		m_CFList.add(f4);
 		
-		Animation img1Animation = AnimationUtils.loadAnimation(Main.this, R.anim.main_img_animation);
-		m_CImgView1.startAnimation(img1Animation);
-		m_CImgView2.startAnimation(img1Animation);
+		m_CAdapter = new StatePagerAdapter(getSupportFragmentManager());
+		m_CAdapter.setListFragment(m_CFList);
 		
-		m_CImgView1.setOnClickListener(new ViewClickListener());
-		m_CImgView2.setOnClickListener(new ViewClickListener());
-		
-	}
-	
-	class ViewClickListener implements OnClickListener{
-
-		@Override
-		public void onClick(View v) {
-			
-			if (v.equals(m_CImgView1)) {
-				Intent intent = new Intent(Main.this, Activity_02.class);
-				startActivity(intent);
-			}
-			else if (v.equals(m_CImgView2)) {
-				
-			}
-			
-		}
+		m_CPager = (ViewPager)findViewById(R.id.pager);
+		m_CPager.setAdapter(m_CAdapter);
 		
 	}
-	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
